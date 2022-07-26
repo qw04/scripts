@@ -8,7 +8,7 @@ keyboard = Controller()
 
 
 def main():
-	timeToSleep = sys.argv[1]
+	timeToSleep = int(sys.argv[1])
 	time.sleep(2)
 	while True:
 		keyboard.press(Key.alt)
