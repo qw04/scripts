@@ -1,12 +1,14 @@
 from pynput.keyboard import Key, Controller
 import time
 import random
+import sys
 
 keyboard = Controller()
 
 
 
 def main():
+	timeToSleep = sys.argv[1]
 	time.sleep(2)
 	while True:
 		keyboard.press(Key.alt)
@@ -21,7 +23,7 @@ def main():
 		keyboard.release(Key.alt)
 		keyboard.release(Key.tab)
 		
-		time.sleep(180)
+		time.sleep(timeToSleep)
 
 
 if __name__ == "__main__":
