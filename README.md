@@ -1,5 +1,9 @@
-# stopSleep
-python stopSleep.py
+# Scripts
 
-alt-tab to prevent computer from sleeping
+## stopSleep
+
+setup: pip install -r requirements.txt
+usage: python stopSleep.py
+
+alt-tab to prevent your computer from sleeping
 
