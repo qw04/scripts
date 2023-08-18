@@ -1,6 +1,6 @@
 import sys
 import re
-from PyPDF2 import PdfReader
+from pypdf import PdfReader
 
 def getAllTextPDF(filePath): # just gonna ocr initially then transition it to pyPDF2 for some text
   text = ""
@@ -11,7 +11,7 @@ def getAllTextPDF(filePath): # just gonna ocr initially then transition it to py
   return text
 
 def specificRE(text):
-    prog = re.compile("\w.*ks[234]")
+    prog = re.compile("\w.*[KSB]\d+")
     result = prog.search(text)
     if result:
         print(result.group())
@@ -28,10 +28,13 @@ def main(src, func):
         if l:
             newPara += l
         elif newPara:
-           func(" " + newPara)
+           func(newPara)
            newPara = ""
         
 
 
 if __name__ == "__main__":
-  main(sys.argv[1], specificRE)
+  if len(sys.argv) < 2:
+    print("Usage: python pdfRE.py <path to pdf>")
+  else:
+    main(sys.argv[1], specificRE)
