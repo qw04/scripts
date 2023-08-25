@@ -1,6 +1,7 @@
 import sys
 import re
 from pypdf import PdfReader
+import os
 
 def getAllTextPDF(filePath): # just gonna ocr initially then transition it to pyPDF2 for some text
   text = ""
@@ -10,31 +11,38 @@ def getAllTextPDF(filePath): # just gonna ocr initially then transition it to py
 
   return text
 
-def specificRE(text):
-    prog = re.compile("\w.*[KSB]\d+")
+def specificRE(text, pattern):
+    prog = re.compile(f"\w.*{pattern}")
     result = prog.search(text)
     if result:
-        print(result.group())
+        return result.group()
     else:
-        print("No match")
+        return "No match"
 
 
-def main(src, func):
-    text = getAllTextPDF(src)
-
-    newPara = ""
-    for line in text.split("\n") + [""]:
-        l = line.strip()
-        if l:
+def main(src, func, *args):
+  with open("fileToWrite.txt", "w") as f:
+    for pattern in args:
+      f.write(f"Pattern: {pattern}\n")
+      for file in os.listdir(src):
+        text = getAllTextPDF(os.path.join(src, file))    
+        newPara = ""
+        for line in text.split("\n") + [""]:
+          l = line.strip()
+          if l:
             newPara += l
-        elif newPara:
-           func(newPara)
-           newPara = ""
-        
+          elif newPara:
+            if func(newPara, pattern) != "No match":
+              f.write(f"{file}: {func(newPara, pattern)}\n")
+            newPara = ""
+      f.write("\n")
+    f.close()
+          
 
 
 if __name__ == "__main__":
   if len(sys.argv) < 2:
-    print("Usage: python pdfRE.py <path to pdf>")
+    print("Usage: python pdfRE.py <path to folder> <pattern1> <pattern2> ...")
   else:
-    main(sys.argv[1], specificRE)
+    # Usage main(<path to folder>, specificRE, <pattern1>, <pattern2>, ...)
+    main(sys.argv[1], specificRE, "K23", "S23")
