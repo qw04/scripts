@@ -45,4 +45,4 @@ if __name__ == "__main__":
     print("Usage: python pdfRE.py <path to folder> <pattern1> <pattern2> ...")
   else:
     # Usage main(<path to folder>, specificRE, <pattern1>, <pattern2>, ...)
-    main(sys.argv[1], specificRE, "K23", "S23")
+    main(sys.argv[1], specificRE)
