@@ -1,0 +1,9 @@
+.README.md.un~
+.requirements.txt.un~
+README.md~
+build/
+dist/
+requirements.txt~
+stopSleep.spec
+..gitignore.un~
+.gitignore~
